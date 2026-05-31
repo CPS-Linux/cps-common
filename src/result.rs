@@ -1,4 +1,4 @@
-use std::fmt::Debug;
+use std::{fmt::Debug, panic::Location};
 
 pub trait ResultExt<T, E> {
     fn unwrap_or_display(self) -> T;
@@ -12,8 +12,9 @@ impl<T, E: Debug> ResultExt<T, E> for Result<T, E> {
         match self {
             Ok(o) => o,
             Err(e) => {
+                let loc = Location::caller();
                 eprintln!("Error: {:?}", e);
-                eprintln!("Failure at file {}, line {}", file!(), line!());
+                eprintln!("Failure at file {}, line {}", loc.file(), loc.line());
                 std::process::exit(1);
             }
         }
@@ -24,7 +25,13 @@ impl<T, E: Debug> ResultExt<T, E> for Result<T, E> {
         match self {
             Ok(o) => o,
             Err(_) => {
-                eprintln!("Error: {}\nin {}:{}", message.as_ref(), file!(), line!());
+                let loc = Location::caller();
+                eprintln!(
+                    "Error: {}\nin {}:{}",
+                    message.as_ref(),
+                    loc.file(),
+                    loc.line()
+                );
                 std::process::exit(1);
             }
         }
