@@ -21,4 +21,7 @@ pub enum CpsiError {
 
     #[error("IO Error: {0}")]
     Io(#[from] std::io::Error),
+
+    #[error("TOML Error: {0}")]
+    Toml(String),
 }
