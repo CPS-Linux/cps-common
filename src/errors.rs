@@ -18,4 +18,7 @@ pub enum CpsiError {
 
     #[error("Ambiguous Provider for {0}: {1}")]
     AmbiguousProvider(String, String),
+
+    #[error("IO Error: {0}")]
+    Io(#[from] std::io::Error),
 }
