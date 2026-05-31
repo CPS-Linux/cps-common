@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{dependency::Dependency, util::architecture::Architecture, version::Version};
+use crate::{architecture::Architecture, dependency::Dependency, version::Version};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Package {
