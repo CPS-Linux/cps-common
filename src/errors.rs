@@ -22,6 +22,12 @@ pub enum CpsiError {
     #[error("IO Error: {0}")]
     Io(#[from] std::io::Error),
 
+    #[error("Parquet Error: {0}")]
+    Parquet(#[from] parquet::errors::ParquetError),
+
     #[error("TOML Error: {0}")]
     Toml(String),
+
+    #[error("Net Error: {0}")]
+    NetError(String),
 }
